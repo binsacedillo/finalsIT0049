@@ -1,39 +1,78 @@
 # Finals POS
 
-A Point-of-Sale system for the final laboratory activity. This repository currently contains the Laravel foundation and database structure; product, customer, staff, authentication, sale-entry, and sales-history screens are the next implementation stage.
+A staff-only Point-of-Sale application for the IT0049 final project. It includes product, customer, and staff management, secure staff sign-in, image uploads, stock-aware sale recording, and sales history.
 
 ## Stack
 
-- Laravel 13
-- PHP 8.3 or newer (PHP 8.5.12 is installed locally at `C:\php-8.5.12\php.exe`)
-- MySQL / MariaDB (local setup uses XAMPP by default)
-- Blade views and Laravel's standard session-based web stack
+- Laravel 13 and PHP 8.3 or newer
+- Blade and Tailwind CSS, built with Vite
+- MySQL / MariaDB for the local application database
 
-Laravel 13 requires PHP 8.3 or newer. On this machine, `php` currently resolves to XAMPP's PHP 8.2.12 because it appears earlier on `PATH`; use `C:\php-8.5.12\php.exe` for this project. The standalone PHP install includes ZIP and MySQL PDO extension DLLs, but they are not enabled globally. The commands below enable them for the relevant process. The XAMPP Apache PHP version is separate from this CLI setup.
+On this Windows machine, `php` still resolves to XAMPP's PHP 8.2.12. Laravel 13 requires PHP 8.3+, so use the installed PHP 8.5 CLI directly at `C:\php-8.5.12\php.exe`. Its ZIP and MySQL PDO extensions are available as DLLs but are not enabled globally; the commands below enable them for that command only. Adjust the paths if PHP or Composer is installed elsewhere.
 
 ## Local setup
 
-1. Install PHP 8.3+, Composer, and MySQL. Start MySQL in XAMPP and create an empty database named `finals_pos`.
-2. Install PHP dependencies with `C:\php-8.5.12\php.exe -d extension=zip C:\ProgramData\ComposerSetup\bin\composer.phar install` (adjust the Composer path if it differs on your machine).
-3. Install frontend dependencies and build assets with `npm.cmd install` and `npm.cmd run build`.
-4. Copy `.env.example` to `.env` if `.env` does not already exist. Set the database connection values for your machine.
-5. Generate the application key: `C:\php-8.5.12\php.exe artisan key:generate`.
-6. Set `POS_ADMIN_USERNAME`, `POS_ADMIN_NAME`, and `POS_ADMIN_PASSWORD` in `.env` for the initial staff login. These values are optional and must not be committed.
-7. Create the tables and optional initial staff account: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan migrate --seed`.
-8. Link the public upload directory: `C:\php-8.5.12\php.exe artisan storage:link`.
-9. Start the local server with the PHP 8.5 CLI: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan serve`.
+1. Install PHP 8.3+, Composer, Node.js, and MySQL. In XAMPP, start MySQL and create an empty database named `finals_pos`.
+2. Install PHP dependencies:
 
-Uploaded product images and staff avatars use Laravel's public storage disk. Run `storage:link` so files can be served from the public directory.
+   ```powershell
+   & 'C:\php-8.5.12\php.exe' -d extension=zip 'C:\ProgramData\ComposerSetup\bin\composer.phar' install
+   ```
 
-## Database foundation
+   On a machine where Composer already uses PHP 8.3+, `composer install` is sufficient.
 
-- `users`: staff login details, avatar path, and an `is_active` flag for archiving staff.
-- `products`: product details, current stock, image path, and an `is_active` flag for archiving products.
-- `customers`: customer contact details.
-- `sales`: product, optional customer, staff member, quantity, unit price at time of sale, and total.
+3. Install and build the frontend:
 
-Sales restrict deletion of their product and staff records so history remains valid. Deleting a customer sets the historical sale's customer reference to null. The `unit_price` field is an addition to the activity schema so historical totals remain understandable if a product's current price changes. Laravel's `created_at` is non-null and defaults to the database current time; `updated_at` is nullable.
+   ```powershell
+   npm.cmd install
+   npm.cmd run build
+   ```
 
-## Current scope
+4. Copy `.env.example` to `.env` if needed. Set `DB_CONNECTION=mysql`, `DB_HOST`, `DB_PORT`, `DB_DATABASE=finals_pos`, `DB_USERNAME`, and `DB_PASSWORD` for the local MySQL server.
+5. Generate the application key:
 
-The migrations, Eloquent models, table relationships, configurable initial staff seeder, staff login/logout, protected dashboard, product/customer/staff management, atomic sale recording, and sales history are in place. Hosting is intentionally deferred; the README and local setup details will be finalized in the handoff phase.
+   ```powershell
+   & 'C:\php-8.5.12\php.exe' artisan key:generate
+   ```
+
+6. Set `POS_ADMIN_USERNAME`, `POS_ADMIN_NAME`, and `POS_ADMIN_PASSWORD` in `.env` to create the first staff account. The seeder skips the account if credentials are not set. Keep `.env` private and never commit it.
+7. Run the migrations and seeder, then create the public upload link:
+
+   ```powershell
+   & 'C:\php-8.5.12\php.exe' -d extension=pdo_mysql artisan migrate --seed
+   & 'C:\php-8.5.12\php.exe' artisan storage:link
+   ```
+
+8. Start the local server:
+
+   ```powershell
+   & 'C:\php-8.5.12\php.exe' -d extension=pdo_mysql artisan serve
+   ```
+
+Open `http://127.0.0.1:8000` and sign in with the initial staff credentials. New staff accounts can then be created from the Staff page; public registration is not available.
+
+## Features
+
+- **Dashboard and authentication:** username/password login, session renewal, rate-limited login attempts, logout, and protection for all management routes. Inactive staff cannot log in or continue using an existing session.
+- **Products:** list, search, create, edit, archive, and restore products. Product images accept JPG, PNG, and WebP files up to 2 MB and are stored on Laravel's public disk.
+- **Customers:** list, search, view, create, edit, and delete customer records. Deleting a customer keeps sales and clears their optional customer reference.
+- **Staff:** list, search, view, create, edit, activate, deactivate, and delete staff. Passwords are hashed. Avatars accept JPG, PNG, and WebP files up to 2 MB. Staff referenced by sales cannot be deleted; deactivate those accounts instead.
+- **Sales:** one product per transaction, optional customer, positive quantity, server-calculated total, saved unit price, and stock decrement within a database transaction. Insufficient stock is rejected with a message and does not create a sale.
+- **Sales history:** paginated transactions with product, customer when available, staff, quantity, saved unit price, total, and date.
+
+## Database and project notes
+
+The schema is built by Laravel migrations and the initial staff account is configured by the database seeder. The sales table retains foreign-key relationships: product and staff records referenced by sales are preserved, while deleting a customer sets the historical customer reference to null. The `unit_price` column records the price at sale time so history remains accurate after product prices change. Product and staff archive states use `is_active`.
+
+The supplied sales schema represents one product per sale; a multi-item shopping cart is not part of this implementation. Hosting is intentionally deferred.
+
+## Verification
+
+Run the test suite using PHP 8.5:
+
+```powershell
+& 'C:\php-8.5.12\php.exe' artisan test
+npm.cmd run build
+```
+
+Feature tests cover authentication, access restrictions, CRUD validation, upload storage, password hashing, archive/deletion behavior, sale calculations, stock rejection, and sales history. Tests use an in-memory SQLite database; run migrations against the configured MySQL database before local use.
