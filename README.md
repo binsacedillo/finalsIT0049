@@ -9,17 +9,18 @@ A Point-of-Sale system for the final laboratory activity. This repository curren
 - MySQL / MariaDB (local setup uses XAMPP by default)
 - Blade views and Laravel's standard session-based web stack
 
-Laravel 13 requires PHP 8.3 or newer. On this machine, `php` currently resolves to XAMPP's PHP 8.2.12 because it appears earlier on `PATH`; use `C:\php-8.5.12\php.exe` for this project. The standalone PHP install includes the MySQL PDO extension DLL, but it may need enabling in `php.ini` before using MySQL. The XAMPP Apache PHP version is separate from this CLI setup.
+Laravel 13 requires PHP 8.3 or newer. On this machine, `php` currently resolves to XAMPP's PHP 8.2.12 because it appears earlier on `PATH`; use `C:\php-8.5.12\php.exe` for this project. The standalone PHP install includes ZIP and MySQL PDO extension DLLs, but they are not enabled globally. The commands below enable them for the relevant process. The XAMPP Apache PHP version is separate from this CLI setup.
 
 ## Local setup
 
 1. Install PHP 8.3+, Composer, and MySQL. Start MySQL in XAMPP and create an empty database named `finals_pos`.
-2. Install PHP dependencies with `composer install`.
-3. Copy `.env.example` to `.env` if `.env` does not already exist. Set the database connection values for your machine.
-4. Generate the application key: `php artisan key:generate`.
-5. To seed an initial staff account, set `POS_ADMIN_USERNAME`, `POS_ADMIN_NAME`, and `POS_ADMIN_PASSWORD` in `.env`. These values are optional and must not be committed.
-6. Create the tables and optional initial staff account: `php artisan migrate --seed`.
-7. Start the local server with the PHP 8.5 CLI: `C:\php-8.5.12\php.exe artisan serve`.
+2. Install PHP dependencies with `C:\php-8.5.12\php.exe -d extension=zip C:\ProgramData\ComposerSetup\bin\composer.phar install` (adjust the Composer path if it differs on your machine).
+3. Install frontend dependencies and build assets with `npm.cmd install` and `npm.cmd run build`.
+4. Copy `.env.example` to `.env` if `.env` does not already exist. Set the database connection values for your machine.
+5. Generate the application key: `C:\php-8.5.12\php.exe artisan key:generate`.
+6. Set `POS_ADMIN_USERNAME`, `POS_ADMIN_NAME`, and `POS_ADMIN_PASSWORD` in `.env` for the initial staff login. These values are optional and must not be committed.
+7. Create the tables and optional initial staff account: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan migrate --seed`.
+8. Start the local server with the PHP 8.5 CLI: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan serve`.
 
 Uploaded product images and staff avatars will use Laravel's public storage disk. When upload features are implemented, run `php artisan storage:link` so files can be served from the public directory.
 
@@ -34,4 +35,4 @@ Sales restrict deletion of their product and staff records so history remains va
 
 ## Current scope
 
-The migrations, Eloquent models, table relationships, and configurable initial staff seeder are in place. No POS pages or login flow have been implemented yet.
+The migrations, Eloquent models, table relationships, configurable initial staff seeder, staff login/logout, and protected dashboard are in place. Product, customer, staff management screens, sale entry, and sales history are being implemented in separate phases.

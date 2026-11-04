@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Staff sign in · {{ config('app.name', 'Finals POS') }}</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-900 antialiased">
+    <main class="grid min-h-screen lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="relative hidden overflow-hidden bg-indigo-950 p-12 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
+            <div class="absolute -right-24 -top-24 size-96 rounded-full border border-white/10"></div>
+            <div class="absolute -bottom-40 -left-28 size-[30rem] rounded-full border border-white/10"></div>
+            <a href="{{ route('login') }}" class="relative flex items-center gap-3">
+                <span class="grid size-11 place-items-center rounded-xl bg-white text-sm font-bold text-indigo-950">FP</span>
+                <span class="text-sm font-semibold">Finals POS</span>
+            </a>
+            <div class="relative max-w-xl">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">Store operations</p>
+                <h1 class="mt-5 text-5xl font-semibold leading-tight tracking-tight">A clear view of every sale.</h1>
+                <p class="mt-6 max-w-md text-base leading-7 text-indigo-100/75">Sign in with your staff account to manage products, customers, and transactions.</p>
+            </div>
+            <p class="relative text-xs text-indigo-200/60">Authorized staff access only</p>
+        </section>
+
+        <section class="flex items-center justify-center px-5 py-12 sm:px-10">
+            <div class="w-full max-w-md">
+                <div class="mb-10 flex items-center gap-3 lg:hidden">
+                    <span class="grid size-10 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white">FP</span>
+                    <span class="text-sm font-semibold">Finals POS</span>
+                </div>
+                <p class="text-sm font-semibold text-indigo-700">Staff portal</p>
+                <h2 class="mt-2 text-3xl font-semibold tracking-tight">Welcome back</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-500">Enter your staff credentials to continue.</p>
+
+                <form method="POST" action="{{ route('login.store') }}" class="mt-8 space-y-5">
+                    @csrf
+                    <div>
+                        <label for="username" class="mb-2 block text-sm font-medium">Username</label>
+                        <input id="username" name="username" type="text" value="{{ old('username') }}" required autofocus autocomplete="username" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                        @error('username') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label for="password" class="mb-2 block text-sm font-medium">Password</label>
+                        <input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                    </div>
+                    <label class="flex items-center gap-2 text-sm text-slate-600">
+                        <input type="checkbox" name="remember" value="1" class="size-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                        Keep me signed in
+                    </label>
+                    <button type="submit" class="w-full rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200">Sign in</button>
+                </form>
+                <p class="mt-8 text-center text-xs text-slate-400">Use the staff account configured for this POS.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
