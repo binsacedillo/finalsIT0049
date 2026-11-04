@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class)->except(['show', 'destroy']);
     Route::patch('/products/{product}/archive', [ProductController::class, 'archive'])->name('products.archive');
     Route::patch('/products/{product}/restore', [ProductController::class, 'restore'])->name('products.restore');
+    Route::resource('customers', CustomerController::class);
 });

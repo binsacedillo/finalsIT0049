@@ -36,4 +36,4 @@ Sales restrict deletion of their product and staff records so history remains va
 
 ## Current scope
 
-The migrations, Eloquent models, table relationships, configurable initial staff seeder, staff login/logout, protected dashboard, and product CRUD with image upload and archive/restore are in place. Customer and staff management, sale entry, and sales history are being implemented in separate phases.
+The migrations, Eloquent models, table relationships, configurable initial staff seeder, staff login/logout, protected dashboard, product CRUD with image upload and archive/restore, and customer CRUD are in place. Staff management, sale entry, and sales history are being implemented in separate phases.
