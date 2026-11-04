@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard');
@@ -26,4 +27,7 @@ Route::middleware(['auth', 'active.staff'])->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('staff', StaffController::class);
     Route::patch('/staff/{staff}/status', [StaffController::class, 'toggleStatus'])->name('staff.status');
+    Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');
+    Route::post('/sales', [SaleController::class, 'store'])->name('sales.store');
 });
