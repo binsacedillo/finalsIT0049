@@ -20,9 +20,10 @@ Laravel 13 requires PHP 8.3 or newer. On this machine, `php` currently resolves 
 5. Generate the application key: `C:\php-8.5.12\php.exe artisan key:generate`.
 6. Set `POS_ADMIN_USERNAME`, `POS_ADMIN_NAME`, and `POS_ADMIN_PASSWORD` in `.env` for the initial staff login. These values are optional and must not be committed.
 7. Create the tables and optional initial staff account: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan migrate --seed`.
-8. Start the local server with the PHP 8.5 CLI: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan serve`.
+8. Link the public upload directory: `C:\php-8.5.12\php.exe artisan storage:link`.
+9. Start the local server with the PHP 8.5 CLI: `C:\php-8.5.12\php.exe -d extension=pdo_mysql artisan serve`.
 
-Uploaded product images and staff avatars will use Laravel's public storage disk. When upload features are implemented, run `php artisan storage:link` so files can be served from the public directory.
+Uploaded product images and staff avatars use Laravel's public storage disk. Run `storage:link` so files can be served from the public directory.
 
 ## Database foundation
 
@@ -35,4 +36,4 @@ Sales restrict deletion of their product and staff records so history remains va
 
 ## Current scope
 
-The migrations, Eloquent models, table relationships, configurable initial staff seeder, staff login/logout, and protected dashboard are in place. Product, customer, staff management screens, sale entry, and sales history are being implemented in separate phases.
+The migrations, Eloquent models, table relationships, configurable initial staff seeder, staff login/logout, protected dashboard, and product CRUD with image upload and archive/restore are in place. Customer and staff management, sale entry, and sales history are being implemented in separate phases.
