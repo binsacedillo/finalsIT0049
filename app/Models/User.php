@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Services\ImageStorage;
 
 class User extends Authenticatable
 {
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'full_name',
         'password',
         'avatar',
+        'avatar_file_id',
         'is_active',
     ];
 
@@ -53,5 +55,10 @@ class User extends Authenticatable
     public function sales(): HasMany
     {
         return $this->hasMany(Sale::class, 'sold_by');
+    }
+
+    public function getAvatarUrlAttribute(): ?string
+    {
+        return app(ImageStorage::class)->url($this->avatar);
     }
 }

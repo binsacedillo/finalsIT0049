@@ -27,7 +27,7 @@
     <div>
         <label for="avatar" class="mb-2 block text-sm font-medium">Avatar <span class="font-normal text-slate-400">(JPG, PNG, or WebP; up to 2 MB)</span></label>
         @if ($staff?->avatar)
-            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($staff->avatar) }}" alt="Current {{ $staff->full_name }} avatar" class="mb-3 size-16 rounded-full object-cover">
+            <img src="{{ $staff->avatar_url }}" alt="Current {{ $staff->full_name }} avatar" class="mb-3 size-16 rounded-full object-cover">
         @endif
         <input id="avatar" name="avatar" type="file" accept="image/jpeg,image/png,image/webp" class="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-indigo-700">
         @error('avatar') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror

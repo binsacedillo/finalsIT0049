@@ -10,7 +10,7 @@
             <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div class="flex items-center gap-4">
                     @if ($staff->avatar)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($staff->avatar) }}" alt="{{ $staff->full_name }} avatar" class="size-16 rounded-2xl object-cover">
+                        <img src="{{ $staff->avatar_url }}" alt="{{ $staff->full_name }} avatar" class="size-16 rounded-2xl object-cover">
                     @else
                         <span class="grid size-16 place-items-center rounded-2xl bg-indigo-50 text-xl font-semibold text-indigo-700">{{ strtoupper(mb_substr($staff->full_name, 0, 1)) }}</span>
                     @endif

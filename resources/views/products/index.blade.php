@@ -38,7 +38,7 @@
                             <td class="px-5 py-4">
                                 <div class="flex items-center gap-3">
                                     @if ($product->image)
-                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($product->image) }}" alt="{{ $product->name }}" class="size-11 rounded-lg bg-slate-100 object-cover">
+                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="size-11 rounded-lg bg-slate-100 object-cover">
                                     @else
                                         <span class="grid size-11 place-items-center rounded-lg bg-indigo-50 text-sm font-semibold text-indigo-600">{{ strtoupper(mb_substr($product->name, 0, 1)) }}</span>
                                     @endif

@@ -38,7 +38,7 @@
                             <td class="px-5 py-4">
                                 <a href="{{ route('staff.show', $staffMember) }}" class="flex items-center gap-3">
                                     @if ($staffMember->avatar)
-                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($staffMember->avatar) }}" alt="{{ $staffMember->full_name }} avatar" class="size-10 rounded-full object-cover">
+                                        <img src="{{ $staffMember->avatar_url }}" alt="{{ $staffMember->full_name }} avatar" class="size-10 rounded-full object-cover">
                                     @else
                                         <span class="grid size-10 place-items-center rounded-full bg-indigo-50 text-sm font-semibold text-indigo-700">{{ strtoupper(mb_substr($staffMember->full_name, 0, 1)) }}</span>
                                     @endif

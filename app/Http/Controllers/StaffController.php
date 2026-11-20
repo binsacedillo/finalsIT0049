@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ImageStorage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -39,14 +39,16 @@ class StaffController extends Controller
         return view('staff.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageStorage $images): RedirectResponse
     {
         $data = $this->validatedStaff($request, creating: true);
         $avatar = $request->file('avatar');
         unset($data['avatar']);
 
         if ($avatar) {
-            $data['avatar'] = $avatar->store('avatars', 'public');
+            $uploaded = $images->store($avatar, 'avatars');
+            $data['avatar'] = $uploaded['location'];
+            $data['avatar_file_id'] = $uploaded['file_id'];
         }
 
         User::create($data);
@@ -64,7 +66,7 @@ class StaffController extends Controller
         return view('staff.edit', compact('staff'));
     }
 
-    public function update(Request $request, User $staff): RedirectResponse
+    public function update(Request $request, User $staff, ImageStorage $images): RedirectResponse
     {
         $data = $this->validatedStaff($request, $staff);
         $avatar = $request->file('avatar');
@@ -75,14 +77,14 @@ class StaffController extends Controller
         }
 
         if ($avatar) {
-            $newAvatar = $avatar->store('avatars', 'public');
             $oldAvatar = $staff->avatar;
-            $data['avatar'] = $newAvatar;
+            $oldFileId = $staff->avatar_file_id;
+            $uploaded = $images->store($avatar, 'avatars');
+            $data['avatar'] = $uploaded['location'];
+            $data['avatar_file_id'] = $uploaded['file_id'];
             $staff->update($data);
 
-            if ($oldAvatar) {
-                Storage::disk('public')->delete($oldAvatar);
-            }
+            $images->delete($oldAvatar, $oldFileId);
         } else {
             $staff->update($data);
         }
@@ -90,7 +92,7 @@ class StaffController extends Controller
         return redirect()->route('staff.show', $staff)->with('status', 'Staff account updated.');
     }
 
-    public function destroy(User $staff): RedirectResponse
+    public function destroy(User $staff, ImageStorage $images): RedirectResponse
     {
         if ($staff->is(auth()->user())) {
             return back()->withErrors(['staff' => 'You cannot delete your own signed-in account.']);
@@ -101,11 +103,10 @@ class StaffController extends Controller
         }
 
         $avatar = $staff->avatar;
+        $avatarFileId = $staff->avatar_file_id;
         $staff->delete();
 
-        if ($avatar) {
-            Storage::disk('public')->delete($avatar);
-        }
+        $images->delete($avatar, $avatarFileId);
 
         return redirect()->route('staff.index')->with('status', 'Staff account deleted.');
     }

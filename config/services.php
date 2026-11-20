@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'imagekit' => [
+        'driver' => env('IMAGE_STORAGE_DRIVER', 'local'),
+        'private_key' => env('IMAGEKIT_PRIVATE_KEY'),
+    ],
+
 ];

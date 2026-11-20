@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class ProductManagementTest extends TestCase
@@ -59,6 +60,33 @@ class ProductManagementTest extends TestCase
             ->assertSessionHasErrors(['name', 'price', 'stock_quantity', 'image']);
 
         $this->assertDatabaseCount('products', 0);
+    }
+
+    public function test_product_image_can_be_stored_in_imagekit(): void
+    {
+        config([
+            'services.imagekit.driver' => 'imagekit',
+            'services.imagekit.private_key' => 'imagekit-private-test-key',
+        ]);
+        Http::fake([
+            'https://upload.imagekit.io/api/v1/files/upload' => Http::response([
+                'url' => 'https://ik.imagekit.io/demo/products/product-test.png',
+                'fileId' => 'imagekit-file-test-id',
+            ]),
+        ]);
+
+        $this->post(route('products.store'), [
+            'name' => 'Cloud image product',
+            'price' => '25.00',
+            'stock_quantity' => 2,
+            'image' => $this->fakePng('product.png'),
+        ])->assertRedirect(route('products.index'));
+
+        $product = Product::where('name', 'Cloud image product')->firstOrFail();
+        $this->assertSame('https://ik.imagekit.io/demo/products/product-test.png', $product->image);
+        $this->assertSame('imagekit-file-test-id', $product->image_file_id);
+        $this->assertSame('https://ik.imagekit.io/demo/products/product-test.png', $product->image_url);
+        Http::assertSent(fn ($request) => $request->url() === 'https://upload.imagekit.io/api/v1/files/upload');
     }
 
     public function test_staff_can_update_a_product_and_replace_its_image(): void

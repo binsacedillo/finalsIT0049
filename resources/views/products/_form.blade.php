@@ -21,7 +21,7 @@
     <div>
         <label for="image" class="mb-2 block text-sm font-medium">Product image <span class="font-normal text-slate-400">(JPG, PNG, or WebP; up to 2 MB)</span></label>
         @if ($product?->image)
-            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($product->image) }}" alt="Current {{ $product->name }} image" class="mb-3 size-20 rounded-xl object-cover">
+            <img src="{{ $product->image_url }}" alt="Current {{ $product->name }} image" class="mb-3 size-20 rounded-xl object-cover">
         @endif
         <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" class="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-indigo-700">
         @error('image') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror

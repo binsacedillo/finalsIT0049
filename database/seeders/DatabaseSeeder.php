@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $password = config('pos.admin_password');
 
         if ($username && $password) {
-            User::updateOrCreate(
+            User::firstOrCreate(
                 ['username' => $username],
                 [
                     'full_name' => config('pos.admin_name', 'POS Administrator'),

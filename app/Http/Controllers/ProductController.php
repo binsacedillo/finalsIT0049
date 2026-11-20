@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ImageStorage;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -31,14 +31,16 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageStorage $images): RedirectResponse
     {
         $data = $this->validatedProduct($request);
         $image = $request->file('image');
         unset($data['image']);
 
         if ($image) {
-            $data['image'] = $image->store('products', 'public');
+            $uploaded = $images->store($image, 'products');
+            $data['image'] = $uploaded['location'];
+            $data['image_file_id'] = $uploaded['file_id'];
         }
 
         Product::create($data);
@@ -51,21 +53,21 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, Product $product, ImageStorage $images): RedirectResponse
     {
         $data = $this->validatedProduct($request);
         $image = $request->file('image');
         unset($data['image']);
 
         if ($image) {
-            $newImage = $image->store('products', 'public');
             $oldImage = $product->image;
-            $data['image'] = $newImage;
+            $oldFileId = $product->image_file_id;
+            $uploaded = $images->store($image, 'products');
+            $data['image'] = $uploaded['location'];
+            $data['image_file_id'] = $uploaded['file_id'];
             $product->update($data);
 
-            if ($oldImage) {
-                Storage::disk('public')->delete($oldImage);
-            }
+            $images->delete($oldImage, $oldFileId);
         } else {
             $product->update($data);
         }
