@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -8,4 +10,233 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-indigo-50: #eaf2ec;
+    --color-indigo-100: #d6e6da;
+    --color-indigo-200: #b3d0bb;
+    --color-indigo-300: #8bb79a;
+    --color-indigo-400: #5e9a75;
+    --color-indigo-500: #287852;
+    --color-indigo-600: #006241;
+    --color-indigo-700: #004d36;
+    --color-indigo-800: #003c2b;
+    --color-indigo-900: #002d20;
+    --color-indigo-950: #001f16;
+}
+
+@layer base {
+    [data-theme="light"] {
+        color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+        color-scheme: dark;
+    }
+}
+
+@layer utilities {
+    [data-theme="light"] body {
+        background-color: #f5f3ec;
+        color: #1f2922;
+    }
+
+    [data-theme="light"] .bg-white {
+        background-color: #fffdf7;
+    }
+
+    [data-theme="light"] .bg-slate-50 {
+        background-color: #f6f4ed;
+    }
+
+    [data-theme="light"] body.bg-slate-100 {
+        background-color: #edeae0;
+    }
+
+    [data-theme="light"] .bg-slate-100 {
+        background-color: #ebe8dc;
+    }
+
+    [data-theme="light"] .bg-slate-200 {
+        background-color: #ddd9ca;
+    }
+
+    [data-theme="light"] .text-slate-900,
+    [data-theme="light"] .text-slate-800 {
+        color: #1f2922;
+    }
+
+    [data-theme="light"] .text-slate-700 {
+        color: #35443a;
+    }
+
+    [data-theme="light"] .text-slate-600 {
+        color: #536258;
+    }
+
+    [data-theme="light"] .text-slate-500 {
+        color: #65766b;
+    }
+
+    [data-theme="light"] .text-slate-400,
+    [data-theme="light"] .placeholder\:text-slate-400::placeholder {
+        color: #65766b;
+    }
+
+    [data-theme="light"] .border-slate-100,
+    [data-theme="light"] .border-slate-200 {
+        border-color: #e3dfd2;
+    }
+
+    [data-theme="light"] .border-slate-300 {
+        border-color: #c9c2ae;
+    }
+
+    [data-theme="dark"] body {
+        background-color: #121914;
+        color: #e7efe9;
+    }
+
+    [data-theme="dark"] .bg-white {
+        background-color: #1c261f;
+    }
+
+    [data-theme="dark"] .bg-slate-50 {
+        background-color: #172019;
+    }
+
+    [data-theme="dark"] body.bg-slate-100 {
+        background-color: #121914;
+    }
+
+    [data-theme="dark"] .bg-slate-100 {
+        background-color: #28352c;
+    }
+
+    [data-theme="dark"] .bg-slate-200 {
+        background-color: #35443a;
+    }
+
+    [data-theme="dark"] .text-slate-900,
+    [data-theme="dark"] .text-slate-800 {
+        color: #f0f5f1;
+    }
+
+    [data-theme="dark"] .text-slate-700 {
+        color: #d8e4da;
+    }
+
+    [data-theme="dark"] .text-slate-600 {
+        color: #b9c9bc;
+    }
+
+    [data-theme="dark"] .text-slate-500 {
+        color: #9fb2a4;
+    }
+
+    [data-theme="dark"] .text-slate-400 {
+        color: #879d8d;
+    }
+
+    [data-theme="dark"] .border-slate-100,
+    [data-theme="dark"] .border-slate-200 {
+        border-color: #35443a;
+    }
+
+    [data-theme="dark"] .border-slate-300 {
+        border-color: #4a5b4e;
+    }
+
+    [data-theme="dark"] .divide-slate-100 > :not(:last-child) {
+        border-color: #2d3b31;
+    }
+
+    [data-theme="dark"] .bg-indigo-50,
+    [data-theme="dark"] [class~="bg-indigo-50/70"] {
+        background-color: #1d3527;
+    }
+
+    [data-theme="dark"] .text-indigo-900,
+    [data-theme="dark"] .text-indigo-700,
+    [data-theme="dark"] .text-indigo-600 {
+        color: #b9dfc5;
+    }
+
+    [data-theme="dark"] .border-indigo-100,
+    [data-theme="dark"] .border-indigo-200 {
+        border-color: #345b43;
+    }
+
+    [data-theme="dark"] .bg-emerald-50 {
+        background-color: #12352f;
+    }
+
+    [data-theme="dark"] .text-emerald-800,
+    [data-theme="dark"] .text-emerald-700 {
+        color: #9de5ca;
+    }
+
+    [data-theme="dark"] .border-emerald-200 {
+        border-color: #23634f;
+    }
+
+    [data-theme="dark"] .bg-rose-50 {
+        background-color: #3d202b;
+    }
+
+    [data-theme="dark"] .text-rose-700,
+    [data-theme="dark"] .text-rose-600 {
+        color: #ffb4c1;
+    }
+
+    [data-theme="dark"] .border-rose-200 {
+        border-color: #733748;
+    }
+
+    [data-theme="dark"] .bg-amber-50 {
+        background-color: #3b2b13;
+    }
+
+    [data-theme="dark"] .text-amber-700 {
+        color: #f4d28c;
+    }
+
+    [data-theme="dark"] .placeholder\:text-slate-400::placeholder {
+        color: #8293a8;
+    }
+
+    [data-theme="dark"] input,
+    [data-theme="dark"] select,
+    [data-theme="dark"] textarea {
+        color-scheme: dark;
+    }
+
+    [data-theme="dark"] .hover\:bg-slate-50:hover,
+    [data-theme="dark"] .hover\:bg-slate-50\/70:hover,
+    [data-theme="dark"] .hover\:bg-slate-100:hover {
+        background-color: #2b3b30;
+    }
+
+    [data-theme="dark"] .hover\:bg-white:hover {
+        background-color: #2b3b30;
+    }
+
+    [data-theme="dark"] .hover\:bg-indigo-50:hover {
+        background-color: #294c36;
+    }
+
+    [data-theme="dark"] .hover\:bg-rose-50:hover {
+        background-color: #512b39;
+    }
+
+    [data-theme="dark"] .hover\:text-slate-900:hover {
+        color: #ffffff;
+    }
+
+    [data-theme="dark"] .hover\:text-indigo-700:hover,
+    [data-theme="dark"] .hover\:text-indigo-900:hover {
+        color: #c4e6ce;
+    }
+
+    [data-theme="dark"] .hover\:border-indigo-200:hover {
+        border-color: #527a61;
+    }
 }

@@ -6,8 +6,8 @@
 @section('content')
     <section class="overflow-hidden rounded-2xl bg-indigo-950 p-7 text-white shadow-sm sm:p-10">
         <p class="text-sm font-medium text-indigo-200">Welcome, {{ auth()->user()->full_name }}</p>
-        <h2 class="mt-3 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">Your store workspace is ready.</h2>
-        <p class="mt-4 max-w-2xl text-sm leading-6 text-indigo-100/75">This POS brings product inventory, customer records, staff access, and sales into one place.</p>
+        <h2 class="mt-3 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">Your coffeehouse workspace is ready.</h2>
+        <p class="mt-4 max-w-2xl text-sm leading-6 text-indigo-100/75">Manage products and stock, keep customer and staff records, record sales, and review transaction history.</p>
     </section>
 
     <section class="mt-8">

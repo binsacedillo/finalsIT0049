@@ -15,7 +15,7 @@
                 <a href="{{ route('customers.edit', $customer) }}" class="rounded-xl border border-slate-300 px-4 py-2.5 text-center text-sm font-medium hover:bg-slate-50">Edit details</a>
             </div>
             <dl class="mt-8 grid gap-5 border-t border-slate-100 pt-6 sm:grid-cols-2">
-                <div><dt class="text-xs font-semibold uppercase tracking-wide text-slate-400">Email</dt><dd class="mt-2 text-sm font-medium">{{ $customer->email }}</dd></div>
+                <div class="min-w-0"><dt class="text-xs font-semibold uppercase tracking-wide text-slate-400">Email</dt><dd class="mt-2 break-all text-sm font-medium">{{ $customer->email }}</dd></div>
                 <div><dt class="text-xs font-semibold uppercase tracking-wide text-slate-400">Phone</dt><dd class="mt-2 text-sm font-medium">{{ $customer->phone ?: 'Not provided' }}</dd></div>
                 <div><dt class="text-xs font-semibold uppercase tracking-wide text-slate-400">Added</dt><dd class="mt-2 text-sm font-medium">{{ $customer->created_at->format('M j, Y') }}</dd></div>
             </dl>
