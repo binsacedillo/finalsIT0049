@@ -28,10 +28,10 @@
         <section class="relative hidden overflow-hidden bg-indigo-950 p-12 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
             <div class="absolute -right-24 -top-24 size-96 rounded-full border border-white/10"></div>
             <div class="absolute -bottom-40 -left-28 size-[30rem] rounded-full border border-white/10"></div>
-            <a href="{{ route('login') }}" class="relative flex items-center gap-3">
-                <span class="grid size-11 place-items-center rounded-xl bg-white text-sm font-bold text-indigo-950">FP</span>
+            <div class="relative flex items-center gap-3 text-white">
+                <span class="grid size-11 place-items-center rounded-xl bg-amber-100 text-sm font-bold text-indigo-950 shadow-sm">FP</span>
                 <span class="text-sm font-semibold">Finals POS</span>
-            </a>
+            </div>
             <div class="relative max-w-xl">
                 <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">Coffeehouse operations</p>
                 <h1 class="mt-5 text-5xl font-semibold leading-tight tracking-tight">A clear view of every sale.</h1>
@@ -50,7 +50,7 @@
             </div>
             <div class="w-full max-w-md">
                 <div class="mb-10 flex items-center gap-3 lg:hidden">
-                    <span class="grid size-10 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white">FP</span>
+                    <span class="grid size-10 place-items-center rounded-xl bg-amber-100 text-sm font-bold text-indigo-950 shadow-sm">FP</span>
                     <span class="text-sm font-semibold">Finals POS</span>
                 </div>
                 <p class="text-sm font-semibold text-indigo-700">Staff portal</p>
