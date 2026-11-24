@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Render terminates HTTPS at its proxy and forwards X-Forwarded-Proto.
+        // Trust that proxy information so Laravel generates secure asset and form URLs.
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'active.staff' => EnsureStaffIsActive::class,
         ]);
