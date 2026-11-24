@@ -1,5 +1,9 @@
 # KapePOS
 
+<p align="center">
+  <img src="docs/assets/netrunners-readme-banner.jpg" alt="Netrunners neon cyberpunk banner" width="720">
+</p>
+
 A coffeehouse point-of-sale system for managing products, customers, staff accounts, inventory, and sales. Staff can record a sale against available stock and review the transaction history.
 
 ## Project team
