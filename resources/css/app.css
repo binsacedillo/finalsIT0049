@@ -34,6 +34,18 @@
 }
 
 @layer utilities {
+    [data-theme="light"] .primary-nav-link:hover,
+    [data-theme="light"] .primary-nav-link:focus-visible {
+        background-color: #006241;
+        color: #ffffff;
+    }
+
+    [data-theme="dark"] .primary-nav-link:hover,
+    [data-theme="dark"] .primary-nav-link:focus-visible {
+        background-color: #294c36;
+        color: #ffffff;
+    }
+
     [data-theme="light"] body {
         background-color: #f5f3ec;
         color: #1f2922;
@@ -165,13 +177,23 @@
         border-color: #345b43;
     }
 
-    [data-theme="dark"] .bg-emerald-50 {
-        background-color: #12352f;
+    .instructor-review code {
+        background-color: #fffdf7;
+        color: #003c2b;
+    }
+
+    [data-theme="dark"] .instructor-review code {
+        background-color: #dce9df;
+        color: #003c2b;
     }
 
     [data-theme="dark"] .text-emerald-800,
     [data-theme="dark"] .text-emerald-700 {
         color: #9de5ca;
+    }
+
+    [data-theme="dark"] .bg-emerald-50 {
+        background-color: #12352f;
     }
 
     [data-theme="dark"] .border-emerald-200 {
@@ -223,6 +245,15 @@
         background-color: #294c36;
     }
 
+    [data-theme="dark"] .hover\:bg-indigo-100:hover {
+        background-color: #294c36;
+    }
+
+    [data-theme="dark"] .hover\:bg-indigo-600:hover,
+    [data-theme="dark"] .focus-visible\:bg-indigo-600:focus-visible {
+        background-color: #294c36;
+    }
+
     [data-theme="dark"] .hover\:bg-rose-50:hover {
         background-color: #512b39;
     }
@@ -236,7 +267,41 @@
         color: #c4e6ce;
     }
 
+    [data-theme="dark"] .hover\:text-indigo-800:hover {
+        color: #c4e6ce;
+    }
+
+    [data-theme="dark"] .dashboard-area-card:hover p,
+    [data-theme="dark"] .dashboard-area-card:focus-visible p {
+        color: #b9dfc5;
+    }
+
     [data-theme="dark"] .hover\:border-indigo-200:hover {
         border-color: #527a61;
+    }
+
+    [data-theme="dark"] .dashboard-area-card:hover,
+    [data-theme="dark"] .dashboard-area-card:focus-visible {
+        background-color: #263b2e;
+        border-color: #527a61;
+    }
+
+    [data-theme="dark"] .dashboard-area-card:hover h3,
+    [data-theme="dark"] .dashboard-area-card:focus-visible h3 {
+        color: #c4e6ce;
+    }
+
+    [data-theme="dark"] .dashboard-area-card:focus-visible {
+        outline-color: #8bb79a;
+    }
+
+    [data-theme="dark"] .dashboard-primary-action {
+        background-color: #d6e6da;
+        color: #003c2b;
+    }
+
+    [data-theme="dark"] .dashboard-primary-action:hover {
+        background-color: #b3d0bb;
+        color: #003c2b;
     }
 }

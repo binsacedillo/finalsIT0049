@@ -18,7 +18,7 @@
                 <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
                         <p class="text-xs font-medium text-slate-500">Transaction #{{ $sale->id }}</p>
-                        <p class="mt-1 text-xs text-slate-500">{{ $sale->created_at->format('M j, Y · g:i A') }}</p>
+                        <p class="mt-1 text-xs text-slate-500">{{ $sale->created_at->copy()->setTimezone(config('pos.reporting_timezone', 'Asia/Manila'))->format('M j, Y · g:i A') }}</p>
                     </div>
                     <p class="shrink-0 text-right text-lg font-semibold tabular-nums">₱{{ number_format((float) $sale->total_price, 2) }}</p>
                 </div>
@@ -43,7 +43,7 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse ($sales as $sale)
                         <tr class="hover:bg-slate-50/70">
-                            <td class="px-5 py-4"><span class="block font-medium text-slate-900">#{{ $sale->id }}</span><span class="mt-1 block text-xs text-slate-500">{{ $sale->created_at->format('M j, Y · g:i A') }}</span></td>
+                            <td class="px-5 py-4"><span class="block font-medium text-slate-900">#{{ $sale->id }}</span><span class="mt-1 block text-xs text-slate-500">{{ $sale->created_at->copy()->setTimezone(config('pos.reporting_timezone', 'Asia/Manila'))->format('M j, Y · g:i A') }}</span></td>
                             <td class="px-5 py-4"><span class="font-medium text-slate-900">{{ $sale->product?->name ?? 'Product removed' }}</span><span class="mt-1 block text-xs text-slate-500">₱{{ number_format((float) $sale->unit_price, 2) }} each</span></td>
                             <td class="px-5 py-4 text-slate-600">{{ $sale->customer?->full_name ?? 'Walk-in / deleted customer' }}</td>
                             <td class="px-5 py-4 text-slate-600">{{ $sale->staff?->full_name ?? 'Staff unavailable' }}</td>

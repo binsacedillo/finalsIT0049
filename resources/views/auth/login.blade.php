@@ -57,6 +57,20 @@
                 <h2 class="mt-2 text-3xl font-semibold tracking-tight">Welcome back</h2>
                 <p class="mt-2 text-sm leading-6 text-slate-500">Enter your staff credentials to continue.</p>
 
+                @if (config('pos.demo_access_enabled') && filled(config('pos.admin_username')) && filled(config('pos.admin_password')))
+                    <aside class="instructor-review mt-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-slate-800" aria-label="Instructor review login details">
+                        <p class="font-semibold text-indigo-700">For instructor review</p>
+                        <p class="mt-1 leading-6 text-slate-700">Use this shared staff account to explore the POS:</p>
+                        <dl class="mt-3 grid gap-2 sm:grid-cols-[5.5rem_1fr]">
+                            <dt class="font-medium">Username</dt>
+                            <dd><code class="break-all rounded bg-white/80 px-1.5 py-0.5">{{ config('pos.admin_username') }}</code></dd>
+                            <dt class="font-medium">Password</dt>
+                            <dd><code class="break-all rounded bg-white/80 px-1.5 py-0.5">{{ config('pos.admin_password') }}</code></dd>
+                        </dl>
+                        <p class="mt-3 text-xs leading-5 text-slate-600">This shared account is visible to anyone who visits this page and has staff access to the system. Use it only with demo data.</p>
+                    </aside>
+                @endif
+
                 <form method="POST" action="{{ route('login.store') }}" class="mt-8 space-y-5">
                     @csrf
                     <div>

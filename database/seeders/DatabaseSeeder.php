@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create the initial staff account only when credentials are supplied
-        // in the local .env file. Never commit real credentials to the repository.
+        // through environment configuration. Never commit real credentials.
         $username = config('pos.admin_username');
         $password = config('pos.admin_password');
 
@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
                     'is_active' => true,
                 ],
             );
+        }
+
+        if (config('pos.demo_data_enabled')) {
+            $this->call(DemoDataSeeder::class);
         }
     }
 }

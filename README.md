@@ -54,11 +54,13 @@ Open `http://127.0.0.1:8000` and sign in with the initial staff credentials. New
 ## Features
 
 - **Dashboard and authentication:** username/password login, session renewal, rate-limited login attempts, logout, and protection for all management routes. Inactive staff cannot log in or continue using an existing session.
+- **Dashboard overview:** daily sales and transaction totals, active products, out-of-stock count, latest five sales, and active products with stock at or below the configurable threshold. Reporting dates use `POS_REPORTING_TIMEZONE` (default `Asia/Manila`); `POS_LOW_STOCK_THRESHOLD` defaults to five units.
 - **Products:** list, search, create, edit, archive, and restore products. Product images accept JPG, PNG, and WebP files up to 2 MB and are stored on Laravel's public disk.
 - **Customers:** list, search, view, create, edit, and delete customer records. Deleting a customer keeps sales and clears their optional customer reference.
 - **Staff:** list, search, view, create, edit, activate, deactivate, and delete staff. Passwords are hashed. Avatars accept JPG, PNG, and WebP files up to 2 MB. Staff referenced by sales cannot be deleted; deactivate those accounts instead.
 - **Sales:** one product per transaction, optional customer, positive quantity, server-calculated total, saved unit price, and stock decrement within a database transaction. Insufficient stock is rejected with a message and does not create a sale.
 - **Sales history:** paginated transactions with product, customer when available, staff, quantity, saved unit price, total, and date.
+- **Demo records:** an optional idempotent seeder adds eleven fictional coffeehouse products, five sample customers, and up to eight sample sales. Sample sales reduce stock; the seeder does not add them when any sales already exist.
 
 ## Database and project notes
 
@@ -74,7 +76,7 @@ The repository includes a Dockerfile and `render.yaml` for deploying the Laravel
 - **TiDB Cloud Starter** for persistent MySQL-compatible POS records. Public TiDB connections require TLS.
 - **ImageKit Free** for product images and staff avatars. The free tier currently includes 3 GB media storage and 20 GB monthly bandwidth; uploads or delivery can stop after those quotas are reached.
 
-The app runs migrations on startup and seeds the initial staff account from environment variables only when that username does not already exist. It uses database-backed sessions, cache, and queues so the Render service does not depend on its temporary filesystem for these records. ImageKit keeps uploaded photos outside the Render filesystem.
+The app runs migrations on startup and seeds the initial staff account from environment variables only when that username does not already exist. `POS_DEMO_DATA_ENABLED=true` enables the fictional catalog and sample sales; the Render Blueprint enables it for the review site. The seeder avoids duplicate catalog records on restarts and skips sample sales if the database already contains any transactions. Set it to `false` for a blank database. The app uses database-backed sessions, cache, and queues so the Render service does not depend on its temporary filesystem for these records. ImageKit keeps uploaded photos outside the Render filesystem.
 
 ### Before creating the Render service
 

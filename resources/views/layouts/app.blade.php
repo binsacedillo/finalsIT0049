@@ -45,12 +45,12 @@
 
             <div id="primary-navigation" class="border-t border-slate-100 px-3 pb-4 pt-3 lg:block lg:border-0 lg:px-0 lg:pt-1">
                 <nav aria-label="Main navigation" class="flex flex-col gap-1">
-                    <a href="{{ route('dashboard') }}" @class(['flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium', 'bg-indigo-50 text-indigo-700' => request()->routeIs('dashboard'), 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' => ! request()->routeIs('dashboard')])>
+                    <a href="{{ route('dashboard') }}" @class(['primary-nav-link flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors', 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white focus-visible:bg-indigo-600 focus-visible:text-white' => request()->routeIs('dashboard'), 'text-slate-600 hover:bg-indigo-600 hover:text-white focus-visible:bg-indigo-600 focus-visible:text-white' => ! request()->routeIs('dashboard')])>
                         <span aria-hidden="true">⌂</span> Dashboard
                     </a>
                     @foreach ([['Products', 'products.index'], ['Customers', 'customers.index'], ['Staff', 'staff.index'], ['Record sale', 'sales.create'], ['Sales history', 'sales.index']] as [$label, $routeName])
                         @if (Illuminate\Support\Facades\Route::has($routeName))
-                            <a href="{{ route($routeName) }}" @class(['flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium', 'bg-indigo-50 text-indigo-700' => request()->routeIs(str_replace('.index', '.*', $routeName), str_replace('.create', '.*', $routeName)), 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' => ! request()->routeIs(str_replace('.index', '.*', $routeName), str_replace('.create', '.*', $routeName))])>
+                            <a href="{{ route($routeName) }}" @class(['primary-nav-link flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors', 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white focus-visible:bg-indigo-600 focus-visible:text-white' => request()->routeIs(str_replace('.index', '.*', $routeName), str_replace('.create', '.*', $routeName)), 'text-slate-600 hover:bg-indigo-600 hover:text-white focus-visible:bg-indigo-600 focus-visible:text-white' => ! request()->routeIs(str_replace('.index', '.*', $routeName), str_replace('.create', '.*', $routeName))])>
                                 <span aria-hidden="true">•</span> {{ $label }}
                             </a>
                         @endif

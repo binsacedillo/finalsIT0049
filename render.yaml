@@ -47,3 +47,11 @@ services:
         sync: false
       - key: POS_ADMIN_PASSWORD
         sync: false
+      - key: POS_DEMO_ACCESS_ENABLED
+        value: "true"
+      - key: POS_DEMO_DATA_ENABLED
+        value: "true"
+      - key: POS_REPORTING_TIMEZONE
+        value: Asia/Manila
+      - key: POS_LOW_STOCK_THRESHOLD
+        value: "5"
