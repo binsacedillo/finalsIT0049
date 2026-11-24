@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Staff sign in · {{ config('app.name', 'Finals POS') }}</title>
+    <title>Staff sign in · KapePOS</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/kappos-cup.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/kappos-cup.png') }}">
     <script>
         (() => {
             let preference = 'system';
@@ -29,8 +31,8 @@
             <div class="absolute -right-24 -top-24 size-96 rounded-full border border-white/10"></div>
             <div class="absolute -bottom-40 -left-28 size-[30rem] rounded-full border border-white/10"></div>
             <div class="relative flex items-center gap-3 text-white">
-                <span class="grid size-11 place-items-center rounded-xl bg-amber-100 text-sm font-bold text-indigo-950 shadow-sm">FP</span>
-                <span class="text-sm font-semibold">Finals POS</span>
+                <img src="{{ asset('images/kappos-cup.png') }}" alt="" aria-hidden="true" class="size-12 shrink-0 rounded-xl bg-amber-100 p-1 object-contain">
+                <span class="text-sm font-semibold">KapePOS</span>
             </div>
             <div class="relative max-w-xl">
                 <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">Coffeehouse operations</p>
@@ -50,8 +52,11 @@
             </div>
             <div class="w-full max-w-md">
                 <div class="mb-10 flex items-center gap-3 lg:hidden">
-                    <span class="grid size-10 place-items-center rounded-xl bg-amber-100 text-sm font-bold text-indigo-950 shadow-sm">FP</span>
-                    <span class="text-sm font-semibold">Finals POS</span>
+                    <img src="{{ asset('images/kappos-logo.png') }}" alt="KapePOS" class="h-12 w-36 object-contain dark:hidden">
+                    <span class="hidden items-center gap-3 text-slate-900 dark:flex dark:text-slate-100">
+                        <img src="{{ asset('images/kappos-cup.png') }}" alt="" aria-hidden="true" class="size-10 shrink-0 rounded-xl bg-amber-100 p-1 object-contain">
+                        <span class="text-sm font-semibold">KapePOS</span>
+                    </span>
                 </div>
                 <p class="text-sm font-semibold text-indigo-700">Staff portal</p>
                 <h2 class="mt-2 text-3xl font-semibold tracking-tight">Welcome back</h2>

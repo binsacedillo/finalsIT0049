@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') · {{ config('app.name', 'Finals POS') }}</title>
+    <title>@yield('title', 'Dashboard') · KapePOS</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/kappos-cup.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/kappos-cup.png') }}">
     <script>
         (() => {
             let preference = 'system';
@@ -29,10 +31,10 @@
     <div class="min-h-screen lg:grid lg:grid-cols-[250px_minmax(0,1fr)]">
         <aside class="relative z-20 border-b border-slate-200 bg-white lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:border-b-0 lg:border-r">
             <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:justify-start">
-                <a href="{{ route('dashboard') }}" class="flex min-w-0 items-center gap-3">
-                    <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white">FP</span>
+                <a href="{{ route('dashboard') }}" aria-label="KapePOS dashboard" class="flex min-w-0 items-center gap-3">
+                    <img src="{{ asset('images/kappos-cup.png') }}" alt="" aria-hidden="true" class="size-10 shrink-0 rounded-xl bg-amber-100 p-1 object-contain">
                     <span class="min-w-0">
-                        <span class="block truncate text-sm font-semibold tracking-tight">Finals POS</span>
+                        <span class="block truncate text-sm font-semibold tracking-tight">KapePOS</span>
                         <span class="block truncate text-xs text-slate-500">Coffeehouse team</span>
                     </span>
                 </a>

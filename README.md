@@ -1,6 +1,6 @@
-# Finals POS
+# KapePOS
 
-A staff-operated point-of-sale system for managing products, customers, staff accounts, inventory, and sales. Staff can record a sale against available stock and review the transaction history.
+A coffeehouse point-of-sale system for managing products, customers, staff accounts, inventory, and sales. Staff can record a sale against available stock and review the transaction history.
 
 ## Project team
 
